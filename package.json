@@ -1,0 +1,16 @@
+{
+  "name": "user-management-api",
+  "version": "1.0.0",
+  "description": "Simple Node/Express backend converted from the Java design patterns project",
+  "main": "server.js",
+   "type": "module",
+
+  
+  "scripts": {
+    "start": "node server.js"
+
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
