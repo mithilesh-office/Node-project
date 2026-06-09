@@ -1,18 +1,48 @@
 const emailRegex =/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-const phoneRegex =/^[6-9][0-9]{9}$/;
+const phoneRegex =/^[0-9]{10}$/;
 
 export function validateUser(user) {
 
-    if (!user.name?.trim()) {
+    if (!user) {
+        throw new Error("User data is required");
+    }
+
+    // Sanitization
+    const name = user.name?.trim().replace(/\s+/g, " ");
+
+    const email = user.email?.trim().toLowerCase();
+
+    const phone = user.phone?.trim();
+
+    // Required fields
+    if (!name) {
         throw new Error("Name is required");
     }
 
-    if (!emailRegex.test(user.email)) {
+    if (!email) {
+        throw new Error("Email is required");
+    }
+
+    if (!phone) {
+        throw new Error("Phone number is required");
+    }
+
+    // Email validation
+    if (!emailRegex.test(email)) {
         throw new Error("Invalid email");
     }
 
-    if (!phoneRegex.test(user.phone)) {
+    // Phone validation
+    if (!phoneRegex.test(phone)) {
         throw new Error("Invalid phone number");
     }
+
+    // Return sanitized data
+    return {
+        ...user,
+        name,
+        email,
+        phone
+    };
 }

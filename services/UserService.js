@@ -6,12 +6,13 @@ class UserService {
         this.userRepository = userRepository;
     }
 
-    createUser(user,notificationStrategy) {
 
-        validateUser(user);
-        this.userRepository.create(user);
-        notificationStrategy.send(user);
-        return user;
+    createUser(user, notificationStrategy) {
+
+        const validatedUser = validateUser(user);
+        this.userRepository.create(validatedUser);
+        notificationStrategy.send(validatedUser);
+        return validatedUser;
     }
 
     getUser(id) {
@@ -23,9 +24,9 @@ class UserService {
     }
 
     updateUser(id, user) {
+         const validatedUser = validateUser(user);
+         return this.userRepository.update(id,validatedUser);
 
-        validateUser(user);
-        return this.userRepository.update(id, user);
     }
 
     deleteUser(id) {
