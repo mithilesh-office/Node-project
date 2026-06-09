@@ -10,15 +10,12 @@ const service = new UserService(repository);
 
 export const createUser = async (req, res) => {
     try {
-        // Removed 'id' because MongoDB/Mongoose creates '_id' automatically
         const { name, email, phone, notificationType } = req.body;
         
-        // Pass a plain JavaScript object matching your Mongoose Schema fields
         const userData = { name, email, phone };
         
         const strategy = notificationType === "sms" ? new SmsNotification() : new EmailNotification();
         
-        // Pass the plain object to your service layer
         const result = await service.createUser(userData, strategy);
         res.status(201).json(result);
     } catch (error) {
