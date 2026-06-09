@@ -1,8 +1,6 @@
-const emailRegex =
-    /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const emailRegex =/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-const phoneRegex =
-    /^[6-9][0-9]{9}$/;
+const phoneRegex =/^[6-9][0-9]{9}$/;
 
 export function validateUser(user) {
 
