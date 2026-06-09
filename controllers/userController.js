@@ -1,10 +1,10 @@
 import User from "../models/User.js";
-import UserRepository from "../repositories/UserRepository.js";
+import InMemoryUserRepository from "../repositories/InMemoryUserRepository.js";
 import UserService from "../services/UserService.js";
 import EmailNotification from "../strategies/EmailNotification.js";
 import SmsNotification from "../strategies/SmsNotification.js";
 
-const repository = new UserRepository();
+const repository = new InMemoryUserRepository();
 const service = new UserService(repository);
 
 export const createUser = (req, res) => {
