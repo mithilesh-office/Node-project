@@ -2,9 +2,7 @@ class EmailNotification {
 
     send(user) {
 
-        console.log(
-            `Email sent to ${user.email}`
-        );
+        console.log(`Email sent to ${user.email}`);
     }
 }
 
