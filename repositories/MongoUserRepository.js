@@ -1,6 +1,7 @@
 import UserModel from "../models/User.js";
+import UserRepository from "./UserRepository.js";
 
-class MongoUserRepository {
+class MongoUserRepository extends UserRepository {
 
     async create(user) {
         return await UserModel.create(user);
