@@ -1,5 +1,4 @@
 const emailRegex =/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
 const phoneRegex =/^[0-9]{10}$/;
 
 export function validateUser(user) {
@@ -11,8 +10,12 @@ export function validateUser(user) {
     // Sanitization
     const name = user.name?.trim().replace(/\s+/g, " ");
 
+    if (typeof user.email !== "string") {
+    throw new Error(
+        "Email must be a string"
+    );
+}
     const email = user.email?.trim().toLowerCase();
-
     const phone = user.phone?.trim();
 
     // Required fields

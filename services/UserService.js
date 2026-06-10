@@ -1,4 +1,4 @@
-import { validateUser }from "../validators/userValidator.js";
+import { validateUser } from "../validators/userValidator.js";
 
 class UserService {
 
@@ -7,9 +7,9 @@ class UserService {
     }
 
 
-    createUser(user, notificationStrategy) {
+    createUser(userData, notificationStrategy) {
 
-        const validatedUser = validateUser(user);
+        const validatedUser = validateUser(userData);
         this.userRepository.create(validatedUser);
         notificationStrategy.send(validatedUser);
         return validatedUser;
@@ -23,12 +23,11 @@ class UserService {
         return this.userRepository.getAll();
     }
 
-    updateUser(id, user) {
-         const validatedUser = validateUser(user);
+    updateUser(id, userData) {
+         const validatedUser = validateUser(userData);
          return this.userRepository.update(id,validatedUser);
 
     }
-
     deleteUser(id) {
         this.userRepository.delete(id);
     }

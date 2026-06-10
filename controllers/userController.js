@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-import InMemoryUserRepository from "../repositories/InMemoryUserRepository.js";
 import MongoUserRepository from "../repositories/MongoUserRepository.js";
 import UserService from "../services/UserService.js";
 import EmailNotification from "../strategies/EmailNotification.js";
@@ -11,11 +10,8 @@ const service = new UserService(repository);
 export const createUser = async (req, res) => {
     try {
         const { name, email, phone, notificationType } = req.body;
-        
         const userData = { name, email, phone };
-        
         const strategy = notificationType === "sms" ? new SmsNotification() : new EmailNotification();
-        
         const result = await service.createUser(userData, strategy);
         res.status(201).json(result);
     } catch (error) {
