@@ -14,6 +14,13 @@ const errorHandler = (err, req, res, next) => {
         message = Object.values(err.errors).map((val) => val.message).join('. ');
     }
 
+    // Handle Zod validation errors
+    if (err.name === 'ZodError') {
+        statusCode = 400;
+        const issues = err.issues || err.errors || [];
+        message = issues.map((e) => e.message).join(". ");
+    }
+
     if (statusCode === 500) {
         console.error("Unhandled Error:", err);
     }
