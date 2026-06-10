@@ -1,4 +1,3 @@
-// Abstract Repository - defines the contract
 class UserRepository {
     async create(user) {
         throw new Error("create() method must be implemented");
