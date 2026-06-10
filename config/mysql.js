@@ -11,4 +11,14 @@ const mysqlConnection = mysql.createPool({
     queueLimit: 0
 });
 
+export const connectMySQL = async () => {
+    try {
+        const connection = await mysqlConnection.getConnection();
+        connection.release();
+        console.log("MySQL Connected");
+    } catch (error) {
+        console.error("MySQL Connection Failed:", error.message);
+    }
+};
+
 export default mysqlConnection;
