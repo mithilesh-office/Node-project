@@ -1,41 +1,43 @@
+import AppError from "../errors/AppError.js";
+
 const emailRegex =/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const phoneRegex =/^[0-9]{10}$/;
 
 export function validateUser(user) {
 
     if (!user) {
-        throw new Error("User data is required");
+        throw new AppError("User data is required", 400);
     }
     // Sanitization
     const name = user.name?.trim().replace(/\s+/g, " ");
 
     if (typeof user.email !== "string") {
-    throw new Error("Email must be a string");
-}
+        throw new AppError("Email must be a string", 400);
+    }
     const email = user.email?.trim().toLowerCase();
     const phone = user.phone?.trim();
 
     // handle missing fields
     if (!name) {
-        throw new Error("Name is required");
+        throw new AppError("Name is required", 400);
     }
 
     if (!email) {
-        throw new Error("Email is required");
+        throw new AppError("Email is required", 400);
     }
 
     if (!phone) {
-        throw new Error("Phone number is required");
+        throw new AppError("Phone number is required", 400);
     }
 
     // Email validation
     if (!emailRegex.test(email)) {
-        throw new Error("Invalid email");
+        throw new AppError("Invalid email", 400);
     }
 
     // Phone validation
     if (!phoneRegex.test(phone)) {
-        throw new Error("Invalid phone number");
+        throw new AppError("Invalid phone number", 400);
     }
 
     // Return Validated data

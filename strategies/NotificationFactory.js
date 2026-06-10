@@ -1,9 +1,13 @@
 import EmailNotification from "./EmailNotification.js";
 import SmsNotification from "./SmsNotification.js";
+import AppError from "../errors/AppError.js";
 
 
 class NotificationFactory {
     static createNotification(type) {
+        if (!type) {
+            throw new AppError("Notification type is required", 400);
+        }
         const notificationType = type.toLowerCase();
 
         switch (notificationType) {
@@ -14,7 +18,7 @@ class NotificationFactory {
                 return new SmsNotification();
             
             default:
-                throw new Error(`Unknown notification type: ${type}`);
+                throw new AppError(`Unknown notification type: ${type}`, 400);
         }
     }
 }
