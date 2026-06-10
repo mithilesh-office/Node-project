@@ -6,19 +6,16 @@ export function validateUser(user) {
     if (!user) {
         throw new Error("User data is required");
     }
-
     // Sanitization
     const name = user.name?.trim().replace(/\s+/g, " ");
 
     if (typeof user.email !== "string") {
-    throw new Error(
-        "Email must be a string"
-    );
+    throw new Error("Email must be a string");
 }
     const email = user.email?.trim().toLowerCase();
     const phone = user.phone?.trim();
 
-    // Required fields
+    // handle missing fields
     if (!name) {
         throw new Error("Name is required");
     }
@@ -41,7 +38,7 @@ export function validateUser(user) {
         throw new Error("Invalid phone number");
     }
 
-    // Return sanitized data
+    // Return Validated data
     return {
         ...user,
         name,
