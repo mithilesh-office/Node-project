@@ -7,24 +7,13 @@
  * On failure, throws a ZodError which is caught by the global errorHandler.
  */
 const validateBody = (schema) => (req, res, next) => {
-
     const result = schema.safeParse(req.body);
 
     if (!result.success) {
-
-        return res.status(400).json({
-            errors: result.error.issues.map(issue => ({
-                field: issue.path[0],
-                message: issue.message
-            }))
-        });
-        // return res.status(400).json({
-        //     message: result.error.issues[0].message
-        // });
+        return next(result.error);
     }
 
     req.body = result.data;
-
     next();
 };
 

@@ -15,10 +15,16 @@ const errorHandler = (err, req, res, next) => {
     }
 
     // Handle Zod validation errors
-    if (err.name === 'ZodError') {
+    if (err.name === "ZodError") {
         statusCode = 400;
         const issues = err.issues || err.errors || [];
-        message = issues.map((e) => e.message).join(". ");
+
+        return res.status(statusCode).json({
+            errors: issues.map((issue) => ({
+                field: issue.path.length ? issue.path.join(".") : undefined,
+                message: issue.message
+            }))
+        });
     }
 
     if (statusCode === 500) {
