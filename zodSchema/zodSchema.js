@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Schema for creating a user (all fields required)
 export const createUserSchema = z.object({
       name: z
         .string()
@@ -28,5 +27,4 @@ export const createUserSchema = z.object({
         .min(1, "Notification type is required")
 });
 
-// Schema for updating a user (all fields optional)
 export const updateUserSchema = createUserSchema.partial();

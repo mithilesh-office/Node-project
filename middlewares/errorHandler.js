@@ -1,3 +1,5 @@
+import { ZodError } from "zod"
+
 const errorHandler = (err, req, res, next) => {
     let statusCode = err.statusCode || 500;
     let message = err.message || "Something went wrong";
@@ -13,17 +15,14 @@ const errorHandler = (err, req, res, next) => {
     }
 
     // Handle Zod validation errors
-    if (err.name === "ZodError") {
-        statusCode = 400;
-        const issues = err.issues || err.errors || [];
-
-        return res.status(statusCode).json({
-            errors: issues.map((issue) => ({
-                field: issue.path.length ? issue.path.join(".") : undefined,
-                message: issue.message
-            }))
-        });
-    }
+    if (err instanceof ZodError) {
+    return res.status(400).json({
+        errors: err.issues.map((issue) => ({
+            field: issue.path.length ? issue.path.join(".") : undefined,
+            message: issue.message
+        }))
+    });
+}
 
     if (statusCode === 500) {
         console.error("Unhandled Error:", err);
