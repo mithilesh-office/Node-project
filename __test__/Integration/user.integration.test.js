@@ -1,11 +1,9 @@
 import request from "supertest";
 import app from "../../app.js";
+import UserModel from "../../models/User.js";
 
 describe("User API", () => {
-
-    
-    it("creates a user", async () => {
-
+    it("should create a user and persist it in the database", async () => {
         const response = await request(app)
             .post("/api/users/create")
             .send({
@@ -13,13 +11,26 @@ describe("User API", () => {
                 email: "john@test.com",
                 phone: "9994567890",
                 notificationType: "email"
-            });
+            })
+            .expect(201);
 
-        expect(response.status).toBe(201);
 
-        expect(response.body.name).toBe("John");
-
-        expect(response.body.email).toBe("john@test.com");
+        const saved = await UserModel.findOne({email: response.body.email});
+        expect(saved).not.toBeNull();
+        expect(saved.name).toBe("John");
+        expect(saved.email).toBe("john@test.com");
     });
 
+    it("should return 400 for invalid email", async () => {
+        const response = await request(app)
+            .post("/api/users/create")
+            .send({
+                name: "John",
+                email: "invalid",
+                phone: "9994567890",
+                notificationType: "email"
+            })
+            .expect(400);
+
+    });
 });

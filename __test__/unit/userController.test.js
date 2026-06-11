@@ -6,13 +6,9 @@ jest.unstable_mockModule("../../strategies/NotificationFactory.js", () => ({
   },
 }));
  
-const { default: NotificationFactory } = await import(
-  "../../strategies/NotificationFactory.js"
-);
+const { default: NotificationFactory } = await import("../../strategies/NotificationFactory.js");
 
-const { createUserController } = await import(
-  "../../controllers/userController.js"
-);
+const { createUserController } = await import("../../controllers/userController.js");
 
 describe("UserController", () => {
   let service;
@@ -62,9 +58,7 @@ describe("UserController", () => {
 
     await controller.createUser(req, res);
 
-    expect(NotificationFactory.createNotification).toHaveBeenCalledWith(
-      "email"
-    );
+    expect(NotificationFactory.createNotification).toHaveBeenCalledWith("email");
 
     expect(service.createUser).toHaveBeenCalledWith(
       {
