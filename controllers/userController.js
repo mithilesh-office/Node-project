@@ -2,7 +2,7 @@ import { userService } from "../container.js";
 import NotificationFactory from "../strategies/NotificationFactory.js";
 import AppError from "../errors/AppError.js";
 
-function createUserController(service) {
+export function createUserController(service) {
     const createUser = async (req, res) => {
         const { name, email, phone, notificationType } = req.body;
         const userData = { name, email, phone };
@@ -45,6 +45,8 @@ function createUserController(service) {
         deleteUser
     };
 }
+
+
 
 export const userController = createUserController(userService);
 
