@@ -17,11 +17,9 @@ describe("User API", () => {
 
         expect(response.status).toBe(201);
 
-        expect(response.body.name)
-            .toBe("John");
+        expect(response.body.name).toBe("John");
 
-        expect(response.body.email)
-            .toBe("john@test.com");
+        expect(response.body.email).toBe("john@test.com");
     });
 
 });
